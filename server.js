@@ -1,0 +1,50 @@
+const express = require('express')
+const app = express()
+app.use(express.json())
+
+let datas=[{id:1,name:"sharika"},
+    {id:2,name:"rajan"},
+    {id:3,name:"riya"},
+    {id:4,name:"kavi"}
+]
+app.get("/get",(req,res)=>{
+    res.send(datas);
+})
+app.get("/get_by_id",(req,res)=>{
+    let ids = req.query.id
+    let finddata= datas.find((data)=>{
+        return data.id == ids
+    })
+    res.send(finddata)
+})
+app.get("/getdata",(req,res)=>{
+    res.send({"name":"sharika","age":21})
+})
+app.post("/savedata",(req,res)=>{
+    res.send("your data saved")
+})
+
+app.post("/save",(req,res)=>{
+datas.push(req.body)
+    res.send({"data":datas,message:"your data saved"})
+    
+})
+
+app.delete("/deletedata",(req,res)=>{
+    console.log(req.query.id);
+    res.send({message:"data has been deleted successfully" })
+})
+app.use("/test",(req,res)=>{
+    res.send("<h1>Monkey Kavitha</h1>");
+})
+app.use("/sha",(req,res)=>{
+    res.send("<h1>sharika</h2>");
+})
+app.use((req,res)=>{
+    res.send("Hii Iam server 7777");
+})
+
+
+app.listen(7777,()=>{
+    console.log("u r server started");
+})
