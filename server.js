@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+const mongoose = require('mongoose')
 app.use(express.json())
 const handleauth = require("./middleware/auth")
+const dbconnect = require('./config/db')
 
+dbconnect()
 // let datas=[{id:1,name:"sharika"},
 //     {id:2,name:"rajan"},
 //     {id:3,name:"riya"},
