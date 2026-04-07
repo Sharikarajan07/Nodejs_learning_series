@@ -4,30 +4,14 @@ const mongoose = require('mongoose')
 app.use(express.json())
 const handleauth = require("./middleware/auth")
 const dbconnect = require('./config/db')
-const User = require('./model/User')
-const bcrypt = require("bcryptjs")
+const userRouter = require('./routes/user.routes')
+
 
 dbconnect()
 
-app.post('/register',async(req,res)=>{
-    let datas= req.body
-    try{
-        const existuser= await User.findOne({
-            email:datas.email,
-            phone:datas.phone
-        })
-        if(existuser){
-            return res.send({message:"User is already exist"})
-        }
-        let hashpassword = await bcrypt.hash(datas.password,10)
-        datas.password =hashpassword
-        let user_data = new User(datas)
-        await user_data.save()
-        res.send({message:"User registered successfully"})
-    }catch(err){
-        res.send(err)
-    }
-})
+app.use('/',userRouter)
+
+
 // let datas=[{id:1,name:"sharika"},
 //     {id:2,name:"rajan"},
 //     {id:3,name:"riya"},

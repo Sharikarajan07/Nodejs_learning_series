@@ -24,7 +24,7 @@ const userschema = new mongoose.Schema({
         type:String,
         required:true,
         minlength:8,
-        lowercase:true
+        // lowercase:true
     }
 })
 let userModel = mongoose.model("User",userschema)
